@@ -1,0 +1,12 @@
+.jumbotron {
+  background-image: url("https://i.ytimg.com/vi/7m7ChO91yo4/maxresdefault.jpg");
+  background-size: cover;
+  color: white;
+  height: 30rem;
+  margin-bottom: 0;
+}
+
+
+.red {
+  background-color: red;
+}
