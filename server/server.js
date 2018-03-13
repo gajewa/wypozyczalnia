@@ -20,14 +20,14 @@ mongoose.connect('mongodb://admin:admin@ds211309.mlab.com:11309/cars', { useMong
 .catch((err) => console.error(err));
 
 
-app.get('/users', function(req, res, next) {
+app.get('/cars', function(req, res, next) {
     Car.find(function (err, products) {
         if (err) return next(err);
         res.json(products);
     });
 });
 
-app.post('/users', function (req, res, next) {
+app.post('/cars', function (req, res, next) {
     Car.create(req.body, function (err, post) {
         if (err) return next(err);
         res.json(post);

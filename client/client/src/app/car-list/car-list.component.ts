@@ -13,9 +13,10 @@ export class CarListComponent implements OnInit {
   constructor(private http: HttpClient) { }
 
   ngOnInit() {
-    this.http.get('http://localhost:3001/users').subscribe(data => {
+    this.http.get('http://localhost:3001/cars').subscribe(data => {
       this.cars = data;
     });
   }
 
 }
+
