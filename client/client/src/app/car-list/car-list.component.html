@@ -2,9 +2,10 @@
 <table class="table">
   <thead>
     <tr>
-      <th>Make</th>
+      <th>Marka</th>
       <th>Model</th>
-      <th>Year</th>
+      <th>Rocznik</th>
+      <th>Szczegóły</th>
     </tr>
   </thead>
   <tbody>
@@ -12,6 +13,7 @@
       <td>{{car.make}}</td>
       <td>{{car.model}}</td>
       <td>{{car.year}}</td>
+      <td><a [routerLink]="['/car/',car._id]">Click!</a></td>
     </tr>
   </tbody>
 </table>

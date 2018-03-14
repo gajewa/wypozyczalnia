@@ -1,0 +1,56 @@
+<div>
+  <h1>{{car.make}} {{car.model}}</h1>
+  Rocznik: {{car.year}}
+  <br>
+  Ilość miejsc: {{car.seats}}
+  <br>
+  Typ nadwozia: {{car.body}}
+  <br>
+  Silnik: {{car.engine}}
+  <br>
+  Cena za dzień: {{car.price}} zł
+</div>
+
+<button type="button" (click)="toggleEdit()" class="btn btn-warning">Edytuj dane auta</button>
+<button type="button" (click)="deleteCar(car._id)" class="btn btn-danger">Usuń auto z bazy danych</button>
+
+<div *ngIf="editCar">
+  <form (ngSubmit)="updateCar(car._id)">
+    <div class="form-group">
+      <label for="make">Marka</label>
+      <input type="text" name="make" class="form-control" [(ngModel)]="car.make">
+    </div>
+
+    <div class="form-group">
+      <label for="model">Model</label>
+      <input type="text" name="model" class="form-control" [(ngModel)]="car.model">
+    </div>
+
+    <div class="form-group">
+      <label for="year">Rocznik</label>
+      <input type="number" name="year" class="form-control" [(ngModel)]="car.year">
+    </div>
+
+    <div class="form-group">
+      <label for="year">Ilość miejsc</label>
+      <input type="number" name="seats" class="form-control" [(ngModel)]="car.seats">
+    </div>
+
+    <div class="form-group">
+      <label for="year">Typ nadwozia</label>
+      <input type="text" name="body" class="form-control" [(ngModel)]="car.body">
+    </div>
+
+    <div class="form-group">
+      <label for="year">Silnik</label>
+      <input type="text" name="engine" class="form-control" [(ngModel)]="car.engine">
+    </div>
+
+    <div class="form-group">
+      <label for="year">Cena za dzień</label>
+      <input type="number" name="price" class="form-control" [(ngModel)]="car.price">
+    </div>
+
+    <button type="submit" class="btn btn-default">Zapisz</button>
+  </form>
+</div>
