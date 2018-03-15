@@ -93,3 +93,12 @@ app.delete('/cars/:id', function (req, res, next) {
         res.json(post);
     })
 })
+
+app.get('/cars/name/:name', function (req, res, next) {
+
+    Car.find({'make':req.params.name}, function (err, car) {
+        if(err) return err;
+
+        res.json(car);
+    })
+})

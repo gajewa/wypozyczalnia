@@ -9,6 +9,7 @@ import { HttpClient } from '@angular/common/http';
 export class CarListComponent implements OnInit {
 
   cars: any;
+  carSearch: any;
 
   constructor(private http: HttpClient) { }
 
@@ -16,6 +17,20 @@ export class CarListComponent implements OnInit {
     this.http.get('http://localhost:3001/cars').subscribe(data => {
       this.cars = data;
     });
+  }
+
+  getSearch() {
+    if(this.carSearch === ''){
+      this.http.get('http://localhost:3001/cars').subscribe(data => {
+        this.cars = data;
+      });
+    } else {
+      this.http.get('http://localhost:3001/cars/name/'+this.carSearch).subscribe( data => {
+        this.cars = data;
+      });
+    }
+
+
   }
 
 }
