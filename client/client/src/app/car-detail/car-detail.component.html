@@ -13,6 +13,17 @@
 
 <button type="button" (click)="toggleEdit()" class="btn btn-warning">Edytuj dane auta</button>
 <button type="button" (click)="deleteCar(car._id)" class="btn btn-danger">Usuń auto z bazy danych</button>
+<br>
+<div class="form-group">
+  <label for="startDate">Data wypozyczenia</label>
+  <input type="text" name="startDate" class="form-control" [(ngModel)]="startDate">
+</div>
+<div class="form-group">
+  <label for="make">Data oddania</label>
+  <input type="text" name="endDate" class="form-control" [(ngModel)]="endDate">
+</div>
+
+<button type="button" (click)="RentCar(car._id)" class="btn btn-success">Wypożycz auto!</button>
 
 <div *ngIf="editCar">
   <form (ngSubmit)="updateCar(car._id)">

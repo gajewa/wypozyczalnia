@@ -11,6 +11,8 @@ export class CarDetailComponent implements OnInit {
 
   car = {};
   editCar = false;
+  startDate : string;
+  endDate : string;
 
   constructor(private http: HttpClient, private route: ActivatedRoute, private router: Router) { }
 
@@ -44,6 +46,20 @@ export class CarDetailComponent implements OnInit {
       }, (err) => {
         console.log(err);
       })
+  }
+
+  RentCar(carId){
+    let rental = { "carId" : carId,
+      "startDate" : new Date(this.startDate),
+      "endDate" : new Date(this.endDate) };
+
+    this.http.post('http://localhost:3001/rentals', rental).subscribe(
+      res => {
+        console.log(rental);
+      }, (err) => {
+        console.log(err);
+      }
+    )
   }
 
 }

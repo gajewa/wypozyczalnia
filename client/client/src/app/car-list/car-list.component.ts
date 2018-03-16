@@ -16,6 +16,7 @@ export class CarListComponent implements OnInit {
   ngOnInit() {
     this.http.get('http://localhost:3001/cars').subscribe(data => {
       this.cars = data;
+      console.log(this.cars);
     });
   }
 

@@ -10,6 +10,7 @@ import { CarListComponent } from './car-list/car-list.component';
 import { AddCarComponent } from './add-car/add-car.component';
 import { HomeComponent } from './home/home.component';
 import { CarDetailComponent } from './car-detail/car-detail.component';
+import { ShowRentalsComponent } from './show-rentals/show-rentals.component';
 
 const appRoutes: Routes = [
   {
@@ -27,6 +28,11 @@ const appRoutes: Routes = [
     component: CarDetailComponent,
     data: {title: 'Szczegóły auta'}
   },
+  {
+    path: 'myRentals',
+    component: ShowRentalsComponent,
+    data : {title: 'Moje wypozyczone auta'}
+  },
   { path: '',
     component: HomeComponent,
     data: {title: 'Gdynia Car Rent'}
@@ -40,7 +46,8 @@ const appRoutes: Routes = [
     CarListComponent,
     AddCarComponent,
     HomeComponent,
-    CarDetailComponent
+    CarDetailComponent,
+    ShowRentalsComponent
   ],
   imports: [
     BrowserModule,

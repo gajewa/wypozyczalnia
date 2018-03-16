@@ -1,13 +1,12 @@
 <h1>Car list</h1>
 Szukajka:
 <form (ngSubmit)="getSearch()" >
-  <input type="text" name="carSearch" class="form-control" [(ngModel)]="carSearch">
+  <input type="text" name="carSearch" class="form-control" [(ngModel)]="carSearch" placeholder="Marka (Ford, Audi...)">
   <button type="submit" class="btn btn-success">Szukaj</button>
 </form>
 
 
-<br>
-{{carSearch}}
+
 <table class="table">
   <thead>
     <tr>

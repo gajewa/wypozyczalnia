@@ -4,6 +4,7 @@ const app = express()
 var router = express.Router();
 const MongoClient = require('mongodb').MongoClient
 var Car = require('./models/car.js');
+var ClientRental = require('./models/clientRental.js');
 
 app.listen(3001, function () {
     console.log('listetning on 3001');
@@ -102,3 +103,21 @@ app.get('/cars/name/:name', function (req, res, next) {
         res.json(car);
     })
 })
+
+app.get('/rentals/', function (req, res, next) {
+    ClientRental.find(function (err, products) {
+        if(err) return err;
+
+        res.json(products);
+    });
+});
+
+app.post('/rentals', function (req, res, next) {
+    console.log(req.body);
+
+    ClientRental.create(req.body, function (err, post) {
+        if(err) return next(err);
+
+        res.json(post);
+    });
+});
