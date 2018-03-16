@@ -8,11 +8,17 @@
   </thead>
   <tbody>
   <tr *ngFor="let element of rentals">
-    <td>{{element.carId}}</td>
+    <td>{{element._id}}</td>
     <td>{{element.startDate}}</td>
-    <td>{{element.endDate}} + {{element.newProp}}</td>
+    <td>{{element.endDate}}</td>
+  </tr>
+  <hr><hr>
+  <tr *ngFor="let element of car">
+    <td>{{element._id}}</td>
+    <td>{{element.make}}</td>
+    <td>{{element.model}} + {{element.newProp}}</td>
   </tr>
   </tbody>
 </table>
 
-
+<button type="button" (click)="func()">Click</button>
