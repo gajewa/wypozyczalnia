@@ -56,6 +56,7 @@ export class CarDetailComponent implements OnInit {
     this.http.post('http://localhost:3001/rentals', rental).subscribe(
       res => {
         console.log(rental);
+        this.router.navigate(['/myRentals']);
       }, (err) => {
         console.log(err);
       }

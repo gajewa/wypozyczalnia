@@ -13,6 +13,7 @@ export class ShowRentalsComponent implements OnInit {
   rentalsData : any;
   carData : any;
   showRentals = [];
+  bufRentals = [];
 
   constructor(private http: HttpClient, private route: ActivatedRoute, private router: Router) { }
 
@@ -46,6 +47,7 @@ export class ShowRentalsComponent implements OnInit {
               "payment" : payment
             })
           }
+          this.bufRentals = this.showRentals;
         })
       }
     );
@@ -62,5 +64,30 @@ export class ShowRentalsComponent implements OnInit {
       d++;
 
     return d;
+  }
+
+  getPresentRentals(){
+    this.bufRentals =  [];
+    for(var i = 0; i<this.showRentals.length; i++){
+      var bufDate = new Date(this.showRentals[i].rental.endDate);
+      if(bufDate > Date.now())
+        this.bufRentals.push(this.showRentals[i])
+    }
+    console.log(this.showRentals);
+  }
+
+  getPastRentals(){
+    this.bufRentals = [];
+
+    for(var i = 0; i<this.showRentals.length; i++){
+      var bufDate = new Date(this.showRentals[i].rental.endDate);
+      if(bufDate < Date.now())
+        this.bufRentals.push(this.showRentals[i])
+    }
+    console.log(this.showRentals);
+  }
+
+  getAllRentals(){
+    this.bufRentals = this.showRentals;
   }
 }

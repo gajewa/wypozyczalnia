@@ -1,3 +1,7 @@
+<h1>Moje wypożyczenia</h1>
+<a class="link" (click)="getAllRentals()">Wszystkie</a> |
+<a class="link" (click)="getPresentRentals()">Aktualne</a> |
+<a class="link" (click)="getPastRentals()">Historyczne</a>
 <table class="table">
   <thead>
   <tr>
@@ -9,7 +13,7 @@
   </tr>
   </thead>
   <tbody>
-  <tr *ngFor="let element of showRentals">
+  <tr *ngFor="let element of bufRentals">
     <td>{{element.car.make}}</td>
     <td>{{element.car.model}}</td>
     <td>{{element.rental.startDate}}</td>
