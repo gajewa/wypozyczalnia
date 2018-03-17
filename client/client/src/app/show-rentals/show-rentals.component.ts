@@ -10,17 +10,57 @@ import {ActivatedRoute, Router} from '@angular/router';
 })
 export class ShowRentalsComponent implements OnInit {
 
-  rentals : any;
-  
+  rentalsData : any;
+  carData : any;
+  showRentals = [];
 
   constructor(private http: HttpClient, private route: ActivatedRoute, private router: Router) { }
 
   ngOnInit() {
     this.http.get('http://localhost:3001/rentals').subscribe( data => {
-        this.rentals = data;
+        this.rentalsData = data;
+
+        this.http.get('http://localhost:3001/cars').subscribe( carData => {
+          this.carData = carData;
+
+          var car;
+          for(let element of this.rentalsData){
+
+            car = this.carData.filter( function (object) {
+              return object._id == element.carId;
+            })
+            var time1 = new Date(element.endDate);
+            var time2 = new Date(element.startDate);
+
+            var days = this.dhm(time1 - time2);
+
+            var payment = days * car[0].price;
+
+            console.log(payment);
+
+            element.startDate = element.startDate.substring(0,10)+ ' , ' + element.startDate.substring(11,16);
+            element.endDate = element.endDate.substring(0,10)+ ' , ' + element.endDate.substring(11,16);
+            this.showRentals.push( {
+              "rental" : element,
+              "car" : car[0],
+              "payment" : payment
+            })
+          }
+        })
       }
     );
   }
 
 
+  dhm(t){
+    var cd = 24 * 60 * 60 * 1000,
+      ch = 60 * 60 * 1000,
+      d = Math.floor(t / cd),
+      h = Math.floor( (t - d * cd) / ch)
+
+    if(h>0)
+      d++;
+
+    return d;
+  }
 }

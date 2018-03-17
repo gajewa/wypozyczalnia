@@ -1,24 +1,21 @@
 <table class="table">
   <thead>
   <tr>
-    <th>CarId</th>
-    <th>Start Date</th>
-    <th>End Date</th>
+    <th>Marka</th>
+    <th>Model</th>
+    <th>Data wynajęcia</th>
+    <th>Data Zwrotu</th>
+    <th>Cena</th>
   </tr>
   </thead>
   <tbody>
-  <tr *ngFor="let element of rentals">
-    <td>{{element._id}}</td>
-    <td>{{element.startDate}}</td>
-    <td>{{element.endDate}}</td>
-  </tr>
-  <hr><hr>
-  <tr *ngFor="let element of car">
-    <td>{{element._id}}</td>
-    <td>{{element.make}}</td>
-    <td>{{element.model}} + {{element.newProp}}</td>
+  <tr *ngFor="let element of showRentals">
+    <td>{{element.car.make}}</td>
+    <td>{{element.car.model}}</td>
+    <td>{{element.rental.startDate}}</td>
+    <td>{{element.rental.endDate}}</td>
+    <td>{{element.payment}} PLN</td>
   </tr>
   </tbody>
 </table>
 
-<button type="button" (click)="func()">Click</button>
