@@ -1,7 +1,7 @@
 <h1>Moje wypożyczenia</h1>
 <a class="link" (click)="getAllRentals()">Wszystkie</a> |
-<a class="link" (click)="getPresentRentals()">Aktualne</a> |
-<a class="link" (click)="getPastRentals()">Historyczne</a>
+<a class="link" (click)="getPresentRentals()">Aktywne</a> |
+<a class="link" (click)="getPastRentals()">Anulowane</a>
 <table class="table">
   <thead>
   <tr>
@@ -10,15 +10,29 @@
     <th>Data wynajęcia</th>
     <th>Data Zwrotu</th>
     <th>Cena</th>
+    <th></th>
+    <th></th>
+    <th></th>
   </tr>
   </thead>
   <tbody>
   <tr *ngFor="let element of bufRentals">
-    <td>{{element.car.make}}</td>
-    <td>{{element.car.model}}</td>
-    <td>{{element.rental.startDate}}</td>
-    <td>{{element.rental.endDate}}</td>
+    <td>{{element.carId.make}}</td>
+    <td>{{element.carId.model}}</td>
+    <td>{{element.startDate}}</td>
+    <td>{{element.endDate}}</td>
     <td>{{element.payment}} PLN</td>
+    <td>
+      <button class="btn btn-success" *ngIf="element.status === 'Oczekujące' && ifReady(element.startDate)" (click)="updateToActive(element._id, element)"> Odbierz </button>
+    </td>
+    <td>
+      <button class="btn btn-danger" *ngIf="element.status === 'Oczekujące' || element.status === 'Aktywne'" (click)="updateToCanceled(element._id, element)"> Anuluj </button>
+    </td>
+    <td>
+      <div class="blue" *ngIf="element.status === 'Oczekujące' || element.status === 'Zakończone'" >{{element.status}}</div>
+      <div class="green" *ngIf="element.status === 'Aktywne'" >{{element.status}}</div>
+      <div class="red" *ngIf="element.status === 'Anulowano'" >{{element.status}}</div>
+    </td>
   </tr>
   </tbody>
 </table>

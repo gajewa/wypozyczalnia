@@ -8,6 +8,8 @@ var CarSchema = new mongoose.Schema({
     body: String,
     engine: String,
     price: Number,
+    totalIncome: Number,
+    totalRentals: { type: Number, default: 0},
     updated_date: { type: Date, default: Date.now },
 });
 

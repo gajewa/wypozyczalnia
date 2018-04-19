@@ -1,3 +1,16 @@
 a.link {
   cursor: pointer;
 }
+
+.red {
+  color: red;
+}
+
+.green {
+  color: #00eb15;
+}
+
+.blue {
+  color: blue;
+}
+

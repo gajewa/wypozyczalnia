@@ -11,6 +11,9 @@ import { AddCarComponent } from './add-car/add-car.component';
 import { HomeComponent } from './home/home.component';
 import { CarDetailComponent } from './car-detail/car-detail.component';
 import { ShowRentalsComponent } from './show-rentals/show-rentals.component';
+import { CarHistoryComponent } from './car-history/car-history.component';
+import { StatsComponent } from './stats/stats.component';
+import { EditCarComponent } from './edit-car/edit-car.component';
 
 const appRoutes: Routes = [
   {
@@ -33,6 +36,11 @@ const appRoutes: Routes = [
     component: ShowRentalsComponent,
     data : {title: 'Moje wypozyczone auta'}
   },
+  {
+    path: 'stats',
+    component: StatsComponent,
+    data: {title: 'Statystyki'}
+  },
   { path: '',
     component: HomeComponent,
     data: {title: 'Gdynia Car Rent'}
@@ -47,7 +55,10 @@ const appRoutes: Routes = [
     AddCarComponent,
     HomeComponent,
     CarDetailComponent,
-    ShowRentalsComponent
+    ShowRentalsComponent,
+    CarHistoryComponent,
+    StatsComponent,
+    EditCarComponent
   ],
   imports: [
     BrowserModule,

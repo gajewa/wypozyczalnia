@@ -11,7 +11,17 @@ import { Router } from '@angular/router';
 })
 export class AddCarComponent implements OnInit {
 
-  car = {};
+  car = {
+    "make":"",
+    "model":"",
+    "year": "",
+    "seats": "",
+    "body": "",
+    "engine": "",
+    "price": "",
+    "totalRentals": 0,
+    "totalIncome" : 0,
+  };
 
   constructor(private http: HttpClient,  private router: Router) { }
 
@@ -19,7 +29,8 @@ export class AddCarComponent implements OnInit {
   }
 
   addCar() {
-    this.http.post('http://localhost:3001/cars', this.car).subscribe(
+
+    this.http.post('http://localhost:3001/cars/', this.car).subscribe(
       res => {
         console.log(this.car);
         this.router.navigate(['/cars']);
@@ -27,6 +38,10 @@ export class AddCarComponent implements OnInit {
         console.log(err);
       }
     );
+  }
+
+  test(){
+    console.log(this.car);
   }
 
 }
