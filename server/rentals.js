@@ -44,11 +44,26 @@ router.get('/test', (req, res) => {
 
 router.post('/', function (req, res, next) {
 
-    Rental.create(req.body, function (err, post) {
-        if(err) return next(err);
+    Car.findById(req.body.carId, (err, data) => {
+        var time1 =  new Date(req.body.endDate).getTime();
+        var time2 =  new Date(req.body.startDate).getTime();
+        console.log('time1: ' + time1 + ', time2: ' + time2 + ', req.body.endDate: ' + req.body.endDate + ', req.body.startDate: ' + req.body.startDate)
+        var days = calculateDays(time1 - time2);
 
-        res.json(post);
-    });
+        console.log("data.price: " + data.price + ', days: ' + days + ', req.body.discount: ' + req.body.discount);
+        var payment = data.price * days * (1 - req.body.discount);
+        req.body.payment = payment;
+        console.log(req.body)
+
+        Rental.create(req.body, function (err, post) {
+            if(err) return next(err);
+    
+            res.json(post);
+        });
+    })
+
+
+   
 });
 
 router.get('/:carId', function (req, res, next) {
@@ -69,6 +84,16 @@ router.put('/:id', function(req, res, next){
     });
 });
 
-
+function calculateDays(time){
+    var cd = 24 * 60 * 60 * 1000,
+      ch = 60 * 60 * 1000,
+      d = Math.floor(time / cd),
+      h = Math.floor( (time - d * cd) / ch)
+  
+    if(h>0)
+      d++;
+  
+    return d;
+  }
 
 module.exports = router;

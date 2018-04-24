@@ -67,36 +67,25 @@ export class AddRentalComponent implements OnInit {
     
 
     let rental = { "carId" : carId,
+      "userId": this.userId,
       "startDate" : new Date(this.startDate + ':00.000Z'),
       "endDate" : new Date(this.endDate + ':00.000Z'),
       "status" : "Oczekujące",
-      "userId": this.userId,
       "discount": this.discount
     };
-    console.log(rental);
-    window.alert(rental);
+
     this.car.totalRentals += 1;
 
     var time1 =  new Date(this.endDate + ':00.000Z').getTime();
-    var time2 = new Date(this.startDate + ':00.000Z').getTime();
+    var time2 =  new Date(this.startDate + ':00.000Z').getTime();
 
     var days = this.dhm(time1 - time2);
-    // window.alert(this.discount)
-    // window.alert(this.discount.toString())
-    // window.alert(parseFloat(this.discount.toString()));
-    // window.alert(1 - parseFloat(this.discount.toString()));
-    // window.alert(days*this.car.price)
-    // window.alert(days * this.car.price * (1 - parseFloat(this.discount.toString()));)
     var payment = days * this.car.price * (1 - parseFloat(this.discount.toString()));
     this.car.totalIncome += payment;
-    // console.log(payment);
-    // console.log(this.car.totalIncome);
-    window.alert("sometext");
 
     this.http.put('http://localhost:3001/users/updateSpending', {"id" : this.userId, "payment": payment}).subscribe( res=> {
       console.log("user put");
     }, (err) => {
-      console.log("user put err");
       console.log(err);
     })
 
