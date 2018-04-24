@@ -3,6 +3,7 @@ var router = express.Router();
 
 var Car = require('./models/car.js');
 var Rental = require('./models/clientRental.js');
+var User = require('./models/user.js');
 
 
 router.use(function (req, res, next) {
@@ -44,26 +45,42 @@ router.get('/test', (req, res) => {
 
 router.post('/', function (req, res, next) {
 
-    Car.findById(req.body.carId, (err, data) => {
+    Car.findById(req.body.carId, (err, car)=>{
         var time1 =  new Date(req.body.endDate).getTime();
         var time2 =  new Date(req.body.startDate).getTime();
-        console.log('time1: ' + time1 + ', time2: ' + time2 + ', req.body.endDate: ' + req.body.endDate + ', req.body.startDate: ' + req.body.startDate)
         var days = calculateDays(time1 - time2);
-
-        console.log("data.price: " + data.price + ', days: ' + days + ', req.body.discount: ' + req.body.discount);
-        var payment = data.price * days * (1 - req.body.discount);
+        console.log(car)
+        var payment = car.price * days * (1 - req.body.discount);
         req.body.payment = payment;
-        console.log(req.body)
+        
+        newCarTotalIncome = car.totalIncome + payment;
+        newCarTotalRentals = car.totalRentals + 1;
+        
+        car.set({totalRentals: newCarTotalRentals});
+        car.set({totalIncome: newCarTotalIncome});
+        car.save( (err, updatedCar) => {
+            if(err) return err;  
+        });            
 
-        Rental.create(req.body, function (err, post) {
-            if(err) return next(err);
-    
-            res.json(post);
+        User.findById(req.body.userId, (err, user) => {
+            
+            newUserMoneySpent = user.moneySpent + payment;
+            newUserNumberOfRentals = user.numberOfRentals + 1;
+
+            user.set({moneySpent: newUserMoneySpent});
+            user.set({numberOfRentals: newUserNumberOfRentals});
+
+            user.save( (err, updatedUser) => {
+                if(err) return err;
+            });
         });
-    })
+    });
 
+    Rental.create(req.body, function (err, post) {
+        if(err) return next(err);
 
-   
+        res.json(post);
+    });
 });
 
 router.get('/:carId', function (req, res, next) {

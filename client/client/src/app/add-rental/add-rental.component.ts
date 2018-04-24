@@ -64,8 +64,6 @@ export class AddRentalComponent implements OnInit {
       return
     }
 
-    
-
     let rental = { "carId" : carId,
       "userId": this.userId,
       "startDate" : new Date(this.startDate + ':00.000Z'),
@@ -74,33 +72,8 @@ export class AddRentalComponent implements OnInit {
       "discount": this.discount
     };
 
-    this.car.totalRentals += 1;
-
-    var time1 =  new Date(this.endDate + ':00.000Z').getTime();
-    var time2 =  new Date(this.startDate + ':00.000Z').getTime();
-
-    var days = this.dhm(time1 - time2);
-    var payment = days * this.car.price * (1 - parseFloat(this.discount.toString()));
-    this.car.totalIncome += payment;
-
-    this.http.put('http://localhost:3001/users/updateSpending', {"id" : this.userId, "payment": payment}).subscribe( res=> {
-      console.log("user put");
-    }, (err) => {
-      console.log(err);
-    })
-
-    this.http.put('http://localhost:3001/cars/' + this.route.snapshot.params['id'], this.car )
-      .subscribe( res => {
-          console.log("put");
-        }, (err) => {
-          console.log(err)
-        }
-      )
-
-
     this.http.post('http://localhost:3001/rentals', rental).subscribe(
       res => {
-        console.log(rental);
         this.data.changeDiscount(0);
         this.router.navigate(['/myRentals']);
       }, (err) => {
@@ -108,20 +81,4 @@ export class AddRentalComponent implements OnInit {
       }
     )
   }
-
-  dhm(t){
-    var cd = 24 * 60 * 60 * 1000,
-      ch = 60 * 60 * 1000,
-      d = Math.floor(t / cd),
-      h = Math.floor( (t - d * cd) / ch)
-  
-    if(h>0)
-      d++;
-  
-    return d;
-  }
-
-
-
-
 }
