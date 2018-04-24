@@ -1,0 +1,18 @@
+<div class="form-group" *ngIf="showUserSearch">
+    <label for="startDate">Numer dowodu osobistego:</label>
+    <input type="text" name="bdaytime" class="form-control half-width"  [(ngModel)]="idNumber" >
+</div>
+
+<button *ngIf="showUserSearch" type="button" class="btn btn-success" (click)="search()">Szukaj</button>
+
+<h3 *ngIf="notFound">Brak użytkownika w bazie!</h3>
+<div *ngIf="userFound">
+    <h1>{{user.name}} {{user.lastName}}</h1>
+    <br />
+    Telefon: {{user.phoneNumber}}
+    <br />
+    Adres: {{user.address}} 
+    <p *ngIf="(discount>0)">Discount! {{discount}}%</p>
+</div>
+
+

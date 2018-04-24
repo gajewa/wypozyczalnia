@@ -4,9 +4,11 @@ const app = express()
 
 var router = express.Router();
 
+// MongoDB client and schemas
 const MongoClient = require('mongodb').MongoClient;
 var Car = require('./models/car.js');
 var Rental = require('./models/clientRental.js');
+var User = require('./models/user.js');
 
 
 
@@ -21,11 +23,16 @@ app.use(bodyParser.urlencoded({
 app.use(bodyParser.json());
 
 
-var rentalsPath = require('./cars');
-app.use('/cars', rentalsPath);
+var carsPath = require('./cars');
+app.use('/cars', carsPath);
 
 var rentalsPath = require('./rentals');
 app.use('/rentals', rentalsPath);
+
+var usersPath = require('./users');
+app.use('/users', usersPath);
+
+// var 
 
 var mongoose = require('mongoose');
 mongoose.Promise = require('bluebird');

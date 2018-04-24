@@ -37,7 +37,7 @@ router.get('/test', (req, res) => {
          .populate('carId', 'make model price')
          .exec((err, rents) => {
              if(err) return err;
-             console.log(rents)
+            //  console.log(rents)
              res.json(rents);
          })
  })

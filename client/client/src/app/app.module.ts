@@ -14,6 +14,11 @@ import { ShowRentalsComponent } from './show-rentals/show-rentals.component';
 import { CarHistoryComponent } from './car-history/car-history.component';
 import { StatsComponent } from './stats/stats.component';
 import { EditCarComponent } from './edit-car/edit-car.component';
+import { AddRentalComponent } from './add-rental/add-rental.component';
+import { AddUserComponent } from './add-user/add-user.component';
+import { PickUserComponent } from './pick-user/pick-user.component';
+import { UserServiceService } from './user-service.service';
+import { PostTestComponent } from './post-test/post-test.component';
 
 const appRoutes: Routes = [
   {
@@ -41,6 +46,11 @@ const appRoutes: Routes = [
     component: StatsComponent,
     data: {title: 'Statystyki'}
   },
+  {
+    path: 'postTest',
+    component: PostTestComponent,
+    data: {title: "Post test"}
+  },
   { path: '',
     component: HomeComponent,
     data: {title: 'Gdynia Car Rent'}
@@ -58,7 +68,11 @@ const appRoutes: Routes = [
     ShowRentalsComponent,
     CarHistoryComponent,
     StatsComponent,
-    EditCarComponent
+    EditCarComponent,
+    AddRentalComponent,
+    AddUserComponent,
+    PickUserComponent,
+    PostTestComponent
   ],
   imports: [
     BrowserModule,
@@ -69,7 +83,9 @@ const appRoutes: Routes = [
       { enableTracing: true }
     )
   ],
-  providers: [],
+  providers: [
+    UserServiceService
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

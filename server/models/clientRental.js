@@ -11,7 +11,8 @@ var ClientRentalSchema = new mongoose.Schema({
     },
     startDate: Date,
     endDate: Date,
-    status: { type: String, default: "Oczekujące" }
+    status: { type: String, default: "Oczekujące" },
+    discount: { type: Number, default: 0 }
 });
 
 module.exports = mongoose.model('ClientRental', ClientRentalSchema, 'clientRentals');

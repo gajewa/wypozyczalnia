@@ -55,10 +55,11 @@ export class ShowRentalsComponent implements OnInit {
     for(var i = 0; i<this.rentalsData.length; i++){
       
       if(this.rentalsData[i].status === 'Aktywne'){
-        this.bufRentals.push(this.showRentals[i]);
+        this.bufRentals.push(this.rentalsData[i]);
       }
 
     }
+    console.log(this.bufRentals);
   }
 
   getPastRentals(){
@@ -100,6 +101,18 @@ export class ShowRentalsComponent implements OnInit {
 
   updateToCanceled(id, rental) {
     rental.status = "Anulowano";
+
+    this.http.put('http://localhost:3001/rentals/' + id, rental)
+      .subscribe( res => {
+          console.log('Updated')
+        }, (err) => {
+          console.log(err);
+        }
+      )
+  }
+
+  updateToFinished(id, rental) {
+    rental.status = "Zakończone";
 
     this.http.put('http://localhost:3001/rentals/' + id, rental)
       .subscribe( res => {

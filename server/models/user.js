@@ -3,9 +3,9 @@ var mongoose = require('mongoose');
 var UserSchema = new mongoose.Schema({
     name: String,
     lastName: String,
-    idNumber: Number,
+    idNumber: String,
     phoneNumber: Number,
-    adress: String,
+    address: String,
     moneySpent: Number,
     numberOfRentals: Number
 });

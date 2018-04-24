@@ -17,23 +17,10 @@
 <br>
 
 <!-- Start of add car form -->
-
-<div class="form-group">
-  <label for="startDate">Data wypozyczenia</label>
-  <input type="datetime-local" name="bdaytime" class="form-control half-width" [(ngModel)]="startDate">
-</div>
-
-<div class="form-group">
-  <label for="make">Data oddania</label>
-  <input type="datetime-local" name="bdaytime" class="form-control half-width" [(ngModel)]="endDate">
-</div>
-
-<button type="button" (click)="RentCar(car._id)" class="btn btn-success">Wypożycz auto!</button>
-
+<app-add-rental [car]="car"></app-add-rental>
 <!-- End of add car form / start of edit car form -->
 
-<div *ngIf="editCar">
-<app-edit-car></app-edit-car>
-</div>
+
+<app-edit-car *ngIf="editCar"></app-edit-car>
 
 <app-car-history *ngIf="showHistory"></app-car-history>

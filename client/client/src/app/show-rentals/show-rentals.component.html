@@ -21,12 +21,13 @@
     <td>{{element.carId.model}}</td>
     <td>{{element.startDate}}</td>
     <td>{{element.endDate}}</td>
-    <td>{{element.payment}} PLN</td>
+    <td>{{element.payment*(1-element.discount)}} PLN (-{{element.discount*100}}%)</td>
     <td>
       <button class="btn btn-success" *ngIf="element.status === 'Oczekujące' && ifReady(element.startDate)" (click)="updateToActive(element._id, element)"> Odbierz </button>
     </td>
     <td>
-      <button class="btn btn-danger" *ngIf="element.status === 'Oczekujące' || element.status === 'Aktywne'" (click)="updateToCanceled(element._id, element)"> Anuluj </button>
+      <button class="btn btn-danger" *ngIf="element.status === 'Oczekujące'" (click)="updateToCanceled(element._id, element)"> Anuluj </button>
+      <button class="btn btn-primary" *ngIf="element.status === 'Aktywne'" (click)="updateToFinished(element._id, element)" > Zwróć </button>
     </td>
     <td>
       <div class="blue" *ngIf="element.status === 'Oczekujące' || element.status === 'Zakończone'" >{{element.status}}</div>

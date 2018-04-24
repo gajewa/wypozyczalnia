@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import * as d3 from "d3"
 import { HttpClient } from '@angular/common/http';
+// import { endianness } from 'os';
 
 @Component({
   selector: 'app-stats',
@@ -9,6 +10,7 @@ import { HttpClient } from '@angular/common/http';
 })
 export class StatsComponent implements OnInit {
 
+  //#region data init
   bodyData: any  = [
     {
       "body" : "Sedan",
@@ -47,6 +49,11 @@ export class StatsComponent implements OnInit {
   bodySelect : boolean = true;
   carSelect : boolean = true;
 
+  userIncomedata: any;
+  userRentalData: any;
+  userSelect: boolean = true;
+  //#endregion data init
+
   constructor(private http: HttpClient) { }
 
   ngOnInit() {
@@ -62,6 +69,8 @@ export class StatsComponent implements OnInit {
       var hatchCount = 0;
       var dieselCount = 0;
       var petrolCount = 0;
+
+      //#region body and engine count
       for(var i=0; i<this.rentalData.length; i++) {
         if (this.rentalData[i].totalRentals == 0) {
           
@@ -82,7 +91,6 @@ export class StatsComponent implements OnInit {
         this.bodyData[0].income += this.rentalData[i].totalIncome;
       }
    
-      
       if(this.rentalData[i].engine[0] === "B"){
           this.engineData[0].count+=this.rentalData[i].totalRentals;
           this.engineData[0].income+=this.rentalData[i].totalIncome;
@@ -91,12 +99,13 @@ export class StatsComponent implements OnInit {
           this.engineData[1].income+=this.rentalData[i].totalIncome;
         }
       }
+      //#endregion body and engine count   
   
-      
       this.rentalData.sort(this.compareCarRentals);
 
       var color = d3.scaleOrdinal(d3.schemeCategory10);
 
+      //#region car stats chart
     d3.select("#par")
       .selectAll("div")
       .data(this.rentalData)
@@ -120,30 +129,36 @@ export class StatsComponent implements OnInit {
       .text(function(d){
         return d.make + " " + d.model + " " + d.totalRentals;
       });
+      //#endregion car stats chart
+      
       this.bodyData.sort(this.compareEngineRentals);
       this.engineData.sort(this.compareEngineRentals);
-        d3.select("#para")
-        .selectAll("div")
-        .data(this.bodyData)
-        .enter()
-        .append("div")
-        .transition().duration(1000)
-        .style("width", function (d) {
-          return 40*d.count + "px";
-        })
-        .style("background-color", function (d,i) {
-          return color(i);
-        })
-        .style("margin","0.2rem")
-        .style("text-align", "right")
-        .style("padding", "0.2rem")
-        .style("color","white")
-        .style("border-radius", "0px 7px 7px 0px")
-        .text(function(d){
-          return d.body + " " + d.count;
-        });
 
-        d3.select("#parb")
+      //#region body stats chart 
+      d3.select("#para")
+      .selectAll("div")
+      .data(this.bodyData)
+      .enter()
+      .append("div")
+      .transition().duration(1000)
+      .style("width", function (d) {
+        return 40*d.count + "px";
+      })
+      .style("background-color", function (d,i) {
+        return color(i);
+      })
+      .style("margin","0.2rem")
+      .style("text-align", "right")
+      .style("padding", "0.2rem")
+      .style("color","white")
+      .style("border-radius", "0px 7px 7px 0px")
+      .text(function(d){
+        return d.body + " " + d.count;
+      });
+      //#endregion body stats chart
+      
+      //#region engine stats chart
+      d3.select("#parb")
       .selectAll("div")
       .data(this.engineData)
       .enter()
@@ -163,11 +178,40 @@ export class StatsComponent implements OnInit {
       .text(function(d){
         return d.engine + " " + d.count;
       });
+      //#endregion engine stats chart
 
+    })
 
+    this.http.get('http://localhost:3001/users/ranking').subscribe( data => {
+      this.userRentalData = data;
+      var max = this.userRentalData[0].moneySpent;
+      
+      var color = d3.scaleOrdinal(d3.schemeCategory10);
+      //#region engine stats chart
+      d3.select("#userRank")
+      .selectAll("div")
+      .data(this.userRentalData)
+      .enter()
+      .append("div")
+      .transition().duration(1000)
+      .style("width", function (d) {
+        return d.moneySpent*100/max + "%";
+      })
+      .style("background-color", function (d,i) {
+        return color(i);
+      })
+      .style("margin","0.2rem")
+      .style("text-align", "right")
+      .style("padding", "0.2rem")
+      .style("color","white")
+      .style("border-radius", "0px 7px 7px 0px")
+      .text(function(d){
+        return d.name + " " + d.lastName;
+      });
     })
   }
 
+  //#region toggle car data method
   toggleCars(){
     if(this.carSelect){
       var color = d3.scaleOrdinal(d3.schemeCategory20);
@@ -208,7 +252,9 @@ export class StatsComponent implements OnInit {
 
    
   }
+  //#endregion toggle car data method
 
+  // toggle body data method
   toggleBody(){
     if(this.bodySelect){
       console.log(this.rentalData);
@@ -248,6 +294,7 @@ export class StatsComponent implements OnInit {
     }
    
   }
+
 
   toggleEngine(){
     if(this.engineSelect){

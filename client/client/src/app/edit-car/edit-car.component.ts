@@ -22,7 +22,7 @@ export class EditCarComponent implements OnInit {
   updateCar(id){
     this.http.put('http://localhost:3001/cars/'+id, this.car)
       .subscribe(res => {
-        console.log('updated');
+        location.reload();
       }, (err) => {
         console.log(err);
       })
