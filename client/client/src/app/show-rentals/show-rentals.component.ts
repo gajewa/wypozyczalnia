@@ -22,32 +22,8 @@ export class ShowRentalsComponent implements OnInit {
 
     this.http.get('http://localhost:3001/rentals/test').subscribe( data => {
       this.rentalsData = data;
-
-      for(let element of this.rentalsData){
-        var time1 =  new Date(element.endDate).getTime();
-        var time2 = new Date(element.startDate).getTime();
-        var days = this.dhm(time1 - time2);
-
-        element.payment = days * element.carId.price;
-        element.startDate = element.startDate.substring(0,10)+ ' , ' + element.startDate.substring(11,16);
-        element.endDate = element.endDate.substring(0,10)+ ' , ' + element.endDate.substring(11,16);
-      }
       this.bufRentals = this.rentalsData;
-      console.log(this.rentalsData);
     })
-  }
-
-
-  dhm(t){
-    var cd = 24 * 60 * 60 * 1000,
-      ch = 60 * 60 * 1000,
-      d = Math.floor(t / cd),
-      h = Math.floor( (t - d * cd) / ch)
-
-    if(h>0)
-      d++;
-
-    return d;
   }
 
   getPresentRentals(){

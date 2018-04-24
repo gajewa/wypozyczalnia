@@ -49,10 +49,9 @@ router.post('/', function (req, res, next) {
         var time1 =  new Date(req.body.endDate).getTime();
         var time2 =  new Date(req.body.startDate).getTime();
         var days = calculateDays(time1 - time2);
-        console.log(car)
         var payment = car.price * days * (1 - req.body.discount);
         req.body.payment = payment;
-        
+   
         newCarTotalIncome = car.totalIncome + payment;
         newCarTotalRentals = car.totalRentals + 1;
         
@@ -74,13 +73,15 @@ router.post('/', function (req, res, next) {
                 if(err) return err;
             });
         });
+
+        Rental.create(req.body, function (err, post) {
+            if(err) return next(err);
+    
+            res.json(post);
+        });
     });
 
-    Rental.create(req.body, function (err, post) {
-        if(err) return next(err);
-
-        res.json(post);
-    });
+    
 });
 
 router.get('/:carId', function (req, res, next) {
