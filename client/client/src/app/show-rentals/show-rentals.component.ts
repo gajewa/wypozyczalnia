@@ -18,11 +18,10 @@ export class ShowRentalsComponent implements OnInit {
   constructor(private http: HttpClient, private route: ActivatedRoute, private router: Router) { }
 
   ngOnInit() {
-
     this.http.get('http://localhost:3001/rentals/test').subscribe( data => {
       this.rentalsData = data;
       this.bufRentals = this.rentalsData;
-      
+      console.log(this.rentalsData);
     })
   }
 

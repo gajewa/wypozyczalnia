@@ -35,6 +35,7 @@ router.get('/', function (req, res, next) {
 
 router.get('/test', (req, res) => {
      Rental.find({})
+         .populate('userId', 'idNumber')
          .populate('carId', 'make model price')
          .exec((err, rents) => {
              if(err) return err;
@@ -48,7 +49,8 @@ router.post('/', function (req, res, next) {
         var time1 =  new Date(req.body.endDate).getTime();
         var time2 =  new Date(req.body.startDate).getTime();
         var days = calculateDays(time1 - time2);
-        var payment = car.price * days * (1 - req.body.discount);
+        var payment = 100 * car.price * days * (1 - req.body.discount);
+        payment = payment.toFixed(2);
         req.body.payment = payment;
    
         newCarTotalIncome = car.totalIncome + payment;
