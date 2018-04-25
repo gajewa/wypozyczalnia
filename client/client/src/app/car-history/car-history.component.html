@@ -3,12 +3,16 @@
   <tr>
     <th>Od</th>
     <th>Do</th>
+    <th>Wypożyczający</th>
+    <th>Koszt</th>
   </tr>
   </thead>
   <tbody>
   <tr *ngFor="let element of carHistory">
-    <td>{{element.startDate}}</td>
-    <td>{{element.endDate}}</td>
+    <td>{{element.startDate.substring(0,10)+ ' , ' + element.startDate.substring(11,16)}}</td>
+    <td>{{element.endDate.substring(0,10)+ ' , ' + element.endDate.substring(11,16)}}</td>
+    <td>{{element.userId.name}} {{element.userId.lastName}}</td>
+    <td>{{element.payment}} zł</td>
   </tr>
   </tbody>
 </table>
