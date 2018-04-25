@@ -19,7 +19,6 @@ export class CarHistoryComponent implements OnInit {
 
     this.http.get('http://localhost:3001/rentals/'+this.carId).subscribe( rentalData => {
         this.carHistory = rentalData;
-        console.log(this.carHistory);
       }
 
     )
