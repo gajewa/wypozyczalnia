@@ -15,7 +15,6 @@ export class ShowRentalsComponent implements OnInit {
   showRentals = [];
   bufRentals = [];
 
-
   constructor(private http: HttpClient, private route: ActivatedRoute, private router: Router) { }
 
   ngOnInit() {
@@ -23,10 +22,11 @@ export class ShowRentalsComponent implements OnInit {
     this.http.get('http://localhost:3001/rentals/test').subscribe( data => {
       this.rentalsData = data;
       this.bufRentals = this.rentalsData;
+      
     })
   }
 
-  getPresentRentals(){
+  getActiveRentals(){
     this.bufRentals =  [];
     for(var i = 0; i<this.rentalsData.length; i++){
       

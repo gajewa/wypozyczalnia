@@ -24,8 +24,4 @@ export class CarHistoryComponent implements OnInit {
     )
   }
 
-  but(){
-
-  }
-
 }

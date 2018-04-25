@@ -38,7 +38,6 @@ router.get('/test', (req, res) => {
          .populate('carId', 'make model price')
          .exec((err, rents) => {
              if(err) return err;
-            //  console.log(rents)
              res.json(rents);
          })
  })
@@ -91,9 +90,6 @@ router.get('/:carId', function (req, res, next) {
 })
 
 router.put('/:id', function(req, res, next){
-
-    console.log(req.params.id);
-    console.log(req.body);
 
     Rental.findByIdAndUpdate(req.params.id, req.body, function (err, post) {
         if (err)
