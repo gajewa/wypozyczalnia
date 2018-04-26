@@ -1,7 +1,10 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input,ViewContainerRef } from '@angular/core';
 import {ActivatedRoute, Router} from '@angular/router';
 import { HttpClient } from '@angular/common/http';
 import { UserServiceService } from '../user-service.service';
+import { ToastsManager } from 'ng2-toastr/ng2-toastr';
+
+
 
 @Component({
   selector: 'app-add-rental',
@@ -20,13 +23,16 @@ export class AddRentalComponent implements OnInit {
   @Input() car: any;
 
   constructor(private http: HttpClient, private route: ActivatedRoute, 
-    private router: Router, private data: UserServiceService) { }
+    private router: Router, private data: UserServiceService, public toastr: ToastsManager,  private vcr: ViewContainerRef) { 
+    }
 
   ngOnInit() {
     this.data.currentNewUser.subscribe(value => this.newUser = value);
     this.data.currentPickUser.subscribe(value => this.pickUser = value);
     this.data.currentUserId.subscribe(value => this.userId = value);
     this.data.currentDiscount.subscribe(value => this.discount = value);
+    this.toastr.setRootViewContainerRef(this.vcr);
+    
   }
   
   toggleUsersAddComponent(){
@@ -48,19 +54,19 @@ export class AddRentalComponent implements OnInit {
   }
 
   RentCar(carId){
-    
+    console.log('asdasdasd')
     if(this.startDate == undefined || this.endDate == undefined) {
-      window.alert("Proszę podać pełne daty wraz z godzinami!")
+      this.toastr.error('Proszę wybrać dwie poprawne daty wraz z godzinami!');
       return
     }
 
     if(Date.now() - new Date(this.startDate).getTime()>0){
-      window.alert("Proszę zaznaczyć przyszłą datę wypożyczenia!")
+      this.toastr.error("Proszę zaznaczyć przyszłą datę wypożyczenia!")
       return
     }
 
     if(new Date(this.startDate).getTime() > new Date(this.endDate).getTime()){
-      window.alert("Data wypozyczenia przed datą przyjęcia!");
+      this.toastr.error("Data oddadnia przed datą wypozyczenia!");
       return
     }
 
@@ -81,16 +87,10 @@ export class AddRentalComponent implements OnInit {
     var time2 = new Date(this.startDate + ':00.000Z').getTime();
 
     var days = this.dhm(time1 - time2);
-    // window.alert(this.discount)
-    // window.alert(this.discount.toString())
-    // window.alert(parseFloat(this.discount.toString()));
-    // window.alert(1 - parseFloat(this.discount.toString()));
-    // window.alert(days*this.car.price)
-    // window.alert(days * this.car.price * (1 - parseFloat(this.discount.toString()));)
+
     var payment = days * this.car.price * (1 - parseFloat(this.discount.toString()));
     this.car.totalIncome += payment;
-    // console.log(payment);
-    // console.log(this.car.totalIncome);
+
     window.alert("sometext");
 
     this.http.put('http://localhost:3001/users/updateSpending', {"id" : this.userId, "payment": payment}).subscribe( res=> {

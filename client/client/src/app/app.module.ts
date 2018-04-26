@@ -19,6 +19,8 @@ import { AddUserComponent } from './add-user/add-user.component';
 import { PickUserComponent } from './pick-user/pick-user.component';
 import { UserServiceService } from './user-service.service';
 import { PostTestComponent } from './post-test/post-test.component';
+import {ToastModule} from 'ng2-toastr/ng2-toastr';
+import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 
 const appRoutes: Routes = [
   {
@@ -76,6 +78,8 @@ const appRoutes: Routes = [
   ],
   imports: [
     BrowserModule,
+    ToastModule.forRoot(),
+    BrowserAnimationsModule,
     FormsModule,
     HttpClientModule,
     RouterModule.forRoot(
