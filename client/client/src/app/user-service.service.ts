@@ -37,7 +37,7 @@ export class UserServiceService {
   changeUserFound(value: boolean){
     this.userFoundSource.next(value);
   }
-  chengeNewUser(value: boolean){
+  changeNewUser(value: boolean){
     this.newUserSource.next(value);
   }
   changePickUser(value: boolean){

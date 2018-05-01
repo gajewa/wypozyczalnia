@@ -33,9 +33,9 @@ export class PickUserComponent implements OnInit {
 
     this.http.post('http://localhost:3001/users/idNumber', sendObject).subscribe( data => {
       if(data[0] === undefined){
-        window.alert('Brak użytkownika w bazie!')
-        this.userFound = false;
+        this.data.changeNewUser(true);
       } else {
+        this.data.changeNewUser(false);
         this.user = data[0];
         this.data.changeUserId(this.user._id);
         this.userFound = true;
@@ -44,7 +44,6 @@ export class PickUserComponent implements OnInit {
           this.rankData = rankData;
           if(this.rankData[0]._id == this.user._id){
             this.data.changeDiscount(0.2);
-            console.log('FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF')
           } else if(this.rankData[1]._id == this.user._id){
             this.data.changeDiscount(0.15);
           } else if(this.rankData[2]._id == this.user._id){

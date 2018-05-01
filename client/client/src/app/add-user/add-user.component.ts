@@ -35,7 +35,7 @@ export class AddUserComponent implements OnInit {
            this.data.changeUser(this.user);
            this.data.changeUserFound(true);
            this.data.changePickUser(true);
-           this.data.chengeNewUser(false);
+           this.data.changeNewUser(false);
            this.data.changeShowUserSearch(false);
           //  console.log(this.resMessage.userId)
            this.data.changeUserId(this.resMessage.id);
