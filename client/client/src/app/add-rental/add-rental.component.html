@@ -12,6 +12,6 @@
 <app-pick-user></app-pick-user>
 <app-add-user *ngIf="newUser"></app-add-user>
 <b><p *ngIf="(discount>0)">Zniżka {{100*discount}}% dla stałego klienta!</p></b>
-<button type="button" (click)=" RentCar(car._id)" class="btn btn-success">Wypożycz auto!</button>
+<button *ngIf="userFound" type="button" (click)=" RentCar(car._id)" class="btn btn-success">Wypożycz auto!</button>
 
 <br /><br />

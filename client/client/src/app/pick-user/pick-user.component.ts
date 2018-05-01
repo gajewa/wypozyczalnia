@@ -34,11 +34,15 @@ export class PickUserComponent implements OnInit {
     this.http.post('http://localhost:3001/users/idNumber', sendObject).subscribe( data => {
       if(data[0] === undefined){
         this.data.changeNewUser(true);
+        this.data.changeUserFound(false);
+        this.data.changeDiscount(0);
+        this.data.changeIdNumber(this.idNumber);
       } else {
         this.data.changeNewUser(false);
         this.user = data[0];
         this.data.changeUserId(this.user._id);
         this.userFound = true;
+        this.data.changeUserFound(true);
 
         this.http.get('http://localhost:3001/users/ranking').subscribe( rankData => {
           this.rankData = rankData;

@@ -11,33 +11,28 @@ export class AddUserComponent implements OnInit {
 
   user: any;
   resMessage: any;
+  idNumber: String;
 
   constructor(private http: HttpClient, private data: UserServiceService) { }
   
 
   ngOnInit() {
     this.data.currentUser.subscribe(user => this.user = user);
+    this.data.currentIdNumber.subscribe(value => this.user.idNumber = value);
+    
   }
 
   addUser(){
     this.http.post('http://localhost:3001/users', this.user).subscribe( res => {
-      this.resMessage = res;
-      if(this.resMessage.msg = "ok")
-        console.log('ok');
-    })
-  }
-
-  test(){
-    this.http.post('http://localhost:3001/users', this.user).subscribe( res => {
         this.resMessage = res;
-        // console.log(this.resMessage);
+        
          if(this.resMessage.msg = "ok"){
            this.data.changeUser(this.user);
            this.data.changeUserFound(true);
            this.data.changePickUser(true);
            this.data.changeNewUser(false);
            this.data.changeShowUserSearch(false);
-          //  console.log(this.resMessage.userId)
+          
            this.data.changeUserId(this.resMessage.id);
          } else {
            window.alert('Jesteś już zarejestrowana/y!');
