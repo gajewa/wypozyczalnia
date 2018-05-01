@@ -21,7 +21,7 @@ export class ShowRentalsComponent implements OnInit {
 
     this.http.get('http://localhost:3001/rentals/test').subscribe( data => {
       this.rentalsData = data;
-      this.bufRentals = this.rentalsData;
+      this.getActiveRentals();
       
     })
   }
