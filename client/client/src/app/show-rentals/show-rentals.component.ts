@@ -13,7 +13,8 @@ export class ShowRentalsComponent implements OnInit {
   rentalsData : any;
   carData : any;
   showRentals = [];
-  bufRentals = [];
+  bufRentals: any;
+  searchQuery: any;
 
   constructor(private http: HttpClient, private route: ActivatedRoute, private router: Router) { }
 
@@ -28,7 +29,7 @@ export class ShowRentalsComponent implements OnInit {
   getActiveRentals(){
     this.bufRentals =  [];
     for(var i = 0; i<this.rentalsData.length; i++){
-      
+
       if(this.rentalsData[i].status === 'Aktywne'){
         this.bufRentals.push(this.rentalsData[i]);
       }
@@ -41,7 +42,6 @@ export class ShowRentalsComponent implements OnInit {
     this.bufRentals = [];
 
     for(var i = 0; i<this.rentalsData.length; i++){
-
       if(this.rentalsData[i].status === 'Anulowano'){
         this.bufRentals.push(this.rentalsData[i]);
       }
@@ -63,9 +63,9 @@ export class ShowRentalsComponent implements OnInit {
   }
 
   updateToActive(id, rental){
-   
+
     rental.status = "Aktywne";
-    
+
     this.http.put('http://localhost:3001/rentals/' + id, rental)
       .subscribe( res => {
       }, (err) => {
@@ -98,4 +98,13 @@ export class ShowRentalsComponent implements OnInit {
       )
   }
 
+  getSearch(){
+    this.http.get('http://localhost:3001/rentals/test/' + this.searchQuery).subscribe(
+      res => {
+        this.bufRentals = res;
+      }, (err) => {
+        console.log(err);
+      }
+    )
+  }
 }

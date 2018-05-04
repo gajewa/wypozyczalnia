@@ -98,7 +98,26 @@ router.put('/:id', function(req, res, next){
             console.log(err);
         res.json(post);
     });
-});
+})
+
+router.get('/test/:name', function (req, res, next) {
+    Rental.find()
+        .populate('carId')
+         .populate({path: 'userId', match: {idNumber: req.params.name} })
+        .exec( (err, values) => {
+            if(err) return err;
+
+            for(var i = 0; i < values.length; i++){
+                if(values[i].userId === null){
+                    values.splice(i, 1);
+                    i -= 1;
+                }
+            }
+            res.json(values);
+    })
+
+})
+
 
 function calculateDays(time){
     var cd = 24 * 60 * 60 * 1000,

@@ -1,4 +1,9 @@
 <h1>Moje wypożyczenia</h1>
+<form (ngSubmit)="getSearch()">
+  <h3>Wyszukiwarka:</h3>
+  <input type="text" class="form-control" name="searchQuery" [(ngModel)]="searchQuery">
+</form>
+<br />
 <a class="link" (click)="getAllRentals()">Wszystkie</a> |
 <a class="link" (click)="getActiveRentals()">Aktywne</a> |
 <a class="link" (click)="getPastRentals()">Anulowane</a>
