@@ -98,6 +98,14 @@ router.put('/:id', function(req, res, next){
     });
 });
 
+router.get('/user/:userid', (req, res, next) => {
+    Rental.find({'userId' : req.params.userid}, (err, data) =>{
+        if(err) return err;
+
+        res.json(data);
+    })
+})
+
 function calculateDays(time){
     var cd = 24 * 60 * 60 * 1000,
       ch = 60 * 60 * 1000,
