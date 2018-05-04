@@ -1,0 +1,30 @@
+<h1>Lista użytkowników</h1>
+
+<form (ngSubmit)="getSearch()" >
+  <input type="text" name="carSearch" class="form-control" [(ngModel)]="searchQuery" placeholder="Numer dowodu...">
+  <button type="submit" class="btn btn-success">Szukaj</button>
+</form>
+
+<table class="table">
+  <thead>
+  <tr>
+    <th>Imię</th>
+    <th>Nazwisko</th>
+    <th>Numer dowodu</th>
+    <th>Numer telefonu</th>
+    <!--<th>Zniżka</th>-->
+    <th>Profil</th>
+  </tr>
+  </thead>
+  <tbody>
+  <tr *ngFor="let user of users">
+    <td>{{user.name}}</td>
+    <td>{{user.lastName}}</td>
+    <td>{{user.idNumber}}</td>
+    <td>{{user.phoneNumber}}</td>
+    <td><a [routerLink]="['/user/',user._id]">Link</a> </td>
+  </tr>
+
+
+  </tbody>
+</table>
