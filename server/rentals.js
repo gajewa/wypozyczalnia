@@ -86,9 +86,11 @@ router.post('/', function (req, res, next) {
 });
 
 router.get('/:carId', function (req, res, next) {
-    Rental.find({'carId' : req.params.carId}, function (err, data) {
-        res.json(data);
-    })
+    Rental.find({'carId' : req.params.carId})
+        .populate('userId', 'name lastName')
+        .exec( (err, rental) => {
+            res.json(rental);
+        })
 })
 
 router.put('/:id', function(req, res, next){
