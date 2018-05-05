@@ -99,11 +99,13 @@ router.put('/:id', function(req, res, next){
 });
 
 router.get('/user/:userid', (req, res, next) => {
-    Rental.find({'userId' : req.params.userid}, (err, data) =>{
-        if(err) return err;
+    Rental.find({'userId' : req.params.userid})
+        .populate('carId')
+        .exec( (err, data) => {
+            if(err) return err;
 
-        res.json(data);
-    })
+            res.json(data);
+        })
 })
 
 function calculateDays(time){

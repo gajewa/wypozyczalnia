@@ -21,6 +21,7 @@ import { UserServiceService } from './user-service.service';
 import { PostTestComponent } from './post-test/post-test.component';
 import { UserListComponent } from './user-list/user-list.component';
 import { UserProfileComponent } from './user-profile/user-profile.component';
+import { UserHistoryComponent } from './user-history/user-history.component';
 
 const appRoutes: Routes = [
   {
@@ -86,7 +87,8 @@ const appRoutes: Routes = [
     PickUserComponent,
     PostTestComponent,
     UserListComponent,
-    UserProfileComponent
+    UserProfileComponent,
+    UserHistoryComponent
   ],
   imports: [
     BrowserModule,
