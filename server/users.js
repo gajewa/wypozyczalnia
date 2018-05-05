@@ -101,6 +101,13 @@ router.put('/:id', (req, res, next) => {
     })
 })
 
+router.get('/idNumber/:id', (req, res, next) => {
+    User.find({'idNumber' : req.params.id}, (err, user) => {
+        if(err) return err;
+        res.json(user);
+    })
+})
+
 
 
 module.exports = router;

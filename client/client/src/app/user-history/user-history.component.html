@@ -1,0 +1,27 @@
+<h3>Historia wypożyczeń:</h3>
+<table class="table">
+  <thead>
+  <tr>
+    <th>Marka</th>
+    <th>Model</th>
+    <th>Data wynajęcia</th>
+    <th>Data Zwrotu</th>
+    <th>Cena</th>
+    <th></th>
+  </tr>
+  </thead>
+  <tbody>
+  <tr *ngFor="let element of rentals">
+    <td>{{element.carId.make}}</td>
+    <td>{{element.carId.model}}</td>
+    <td>{{element.startDate}}</td>
+    <td>{{element.endDate}}</td>
+    <td>{{element.payment}} PLN  <span *ngIf="element.discount>0">(zniżka {{element.discount*100}}%)</span></td>
+    <td>
+      <div class="blue" *ngIf="element.status === 'Oczekujące' || element.status === 'Zakończone'" >{{element.status}}</div>
+      <div class="green" *ngIf="element.status === 'Aktywne'" >{{element.status}}</div>
+      <div class="red" *ngIf="element.status === 'Anulowano'" >{{element.status}}</div>
+    </td>
+  </tr>
+  </tbody>
+</table>

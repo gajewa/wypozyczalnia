@@ -19,6 +19,9 @@ import { AddUserComponent } from './add-user/add-user.component';
 import { PickUserComponent } from './pick-user/pick-user.component';
 import { UserServiceService } from './user-service.service';
 import { PostTestComponent } from './post-test/post-test.component';
+import { UserListComponent } from './user-list/user-list.component';
+import { UserProfileComponent } from './user-profile/user-profile.component';
+import { UserHistoryComponent } from './user-history/user-history.component';
 
 const appRoutes: Routes = [
   {
@@ -37,6 +40,11 @@ const appRoutes: Routes = [
     data: {title: 'Szczegóły auta'}
   },
   {
+    path: 'user/:id',
+    component: UserProfileComponent,
+    data: {title: 'Profil użytkownika'}
+  },
+  {
     path: 'myRentals',
     component: ShowRentalsComponent,
     data : {title: 'Moje wypozyczone auta'}
@@ -50,6 +58,11 @@ const appRoutes: Routes = [
     path: 'postTest',
     component: PostTestComponent,
     data: {title: "Post test"}
+  },
+  {
+    path: 'users',
+    component: UserListComponent,
+    data: {title: "Lista użytkowników"}
   },
   { path: '',
     component: HomeComponent,
@@ -72,7 +85,10 @@ const appRoutes: Routes = [
     AddRentalComponent,
     AddUserComponent,
     PickUserComponent,
-    PostTestComponent
+    PostTestComponent,
+    UserListComponent,
+    UserProfileComponent,
+    UserHistoryComponent
   ],
   imports: [
     BrowserModule,
