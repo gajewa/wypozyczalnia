@@ -9,13 +9,9 @@
   <input type="datetime-local" name="bdaytime" class="form-control half-width" [(ngModel)]="endDate">
 </div>
 
-<button type="button" (click)="toggleUsersAddComponent()" class="btn btn-primary">Nowy użytkownik</button>
-<button type="button" (click)="togglePickUserComponent()" class="btn btn-primary">Wybierz użytkownika</button>
-
+<app-pick-user></app-pick-user>
 <app-add-user *ngIf="newUser"></app-add-user>
-<app-pick-user *ngIf="pickUser"></app-pick-user>
 <b><p *ngIf="(discount>0)">Zniżka {{100*discount}}% dla stałego klienta!</p></b>
+<button *ngIf="userFound" type="button" (click)=" RentCar(car._id)" class="btn btn-success">Wypożycz auto!</button>
 
 <br /><br />
-
-<button type="button" (click)="RentCar(car._id)" class="btn btn-success">Wypożycz auto!</button>

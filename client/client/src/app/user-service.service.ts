@@ -20,6 +20,8 @@ export class UserServiceService {
   private showUserSearchSource = new BehaviorSubject<boolean>(true);
   private userIdSource = new BehaviorSubject<String>("");
   private discountSource = new BehaviorSubject<Number>(0);
+  private idNumberSource = new BehaviorSubject<String>("");
+
   
   currentUser = this.userSource.asObservable();
   currentUserFound = this.userFoundSource.asObservable();
@@ -28,28 +30,39 @@ export class UserServiceService {
   currentshowUserSearch = this.showUserSearchSource.asObservable();
   currentUserId = this.userIdSource.asObservable();
   currentDiscount = this.discountSource.asObservable();
+  currentIdNumber = this.idNumberSource.asObservable();
 
   constructor() { }
 
   changeUser(user: any){
     this.userSource.next(user);
   }
+  
   changeUserFound(value: boolean){
     this.userFoundSource.next(value);
   }
-  chengeNewUser(value: boolean){
+  
+  changeNewUser(value: boolean){
     this.newUserSource.next(value);
   }
+  
   changePickUser(value: boolean){
     this.pickUserSource.next(value);
   }
+  
   changeShowUserSearch(value: boolean){
     this.showUserSearchSource.next(value);
   }
+  
   changeUserId(value: String){
     this.userIdSource.next(value);
   }
+
   changeDiscount(value: Number){
     this.discountSource.next(value);
+  }
+
+  changeIdNumber(value: String){
+    this.idNumberSource.next(value);
   }
 }

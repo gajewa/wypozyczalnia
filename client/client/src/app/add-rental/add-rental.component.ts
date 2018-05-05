@@ -15,6 +15,7 @@ export class AddRentalComponent implements OnInit {
   endDate : string;
   newUser: boolean = false;
   pickUser: boolean = false;
+  userFound: boolean = false;
   userId: String;
   discount: Number;
   @Input() car: any;
@@ -23,6 +24,7 @@ export class AddRentalComponent implements OnInit {
     private router: Router, private data: UserServiceService) { }
 
   ngOnInit() {
+    this.data.currentUserFound.subscribe(value => this.userFound = value);
     this.data.currentNewUser.subscribe(value => this.newUser = value);
     this.data.currentPickUser.subscribe(value => this.pickUser = value);
     this.data.currentUserId.subscribe(value => this.userId = value);
