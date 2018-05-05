@@ -1,7 +1,10 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input,ViewContainerRef } from '@angular/core';
 import {ActivatedRoute, Router} from '@angular/router';
 import { HttpClient } from '@angular/common/http';
 import { UserServiceService } from '../user-service.service';
+import { ToastsManager } from 'ng2-toastr/ng2-toastr';
+
+
 
 @Component({
   selector: 'app-add-rental',
@@ -20,8 +23,9 @@ export class AddRentalComponent implements OnInit {
   discount: Number;
   @Input() car: any;
 
-  constructor(private http: HttpClient, private route: ActivatedRoute, 
-    private router: Router, private data: UserServiceService) { }
+  constructor(private http: HttpClient, private route: ActivatedRoute,
+    private router: Router, private data: UserServiceService, public toastr: ToastsManager,  private vcr: ViewContainerRef) {
+    }
 
   ngOnInit() {
     this.data.currentUserFound.subscribe(value => this.userFound = value);
@@ -29,8 +33,10 @@ export class AddRentalComponent implements OnInit {
     this.data.currentPickUser.subscribe(value => this.pickUser = value);
     this.data.currentUserId.subscribe(value => this.userId = value);
     this.data.currentDiscount.subscribe(value => this.discount = value);
+    this.toastr.setRootViewContainerRef(this.vcr);
+
   }
-  
+
   toggleUsersAddComponent(){
     if(this.newUser){
       this.newUser = !this.newUser;
@@ -50,19 +56,19 @@ export class AddRentalComponent implements OnInit {
   }
 
   RentCar(carId){
-    
+
     if(this.startDate == undefined || this.endDate == undefined) {
-      window.alert("Proszę podać pełne daty wraz z godzinami!")
+      this.toastr.error('Proszę wybrać dwie poprawne daty wraz z godzinami!');
       return
     }
 
     if(Date.now() - new Date(this.startDate).getTime()>0){
-      window.alert("Proszę zaznaczyć przyszłą datę wypożyczenia!")
+      this.toastr.error("Proszę zaznaczyć przyszłą datę wypożyczenia!")
       return
     }
 
     if(new Date(this.startDate).getTime() > new Date(this.endDate).getTime()){
-      window.alert("Data wypozyczenia przed datą przyjęcia!");
+      this.toastr.error("Data oddadnia przed datą wypozyczenia!");
       return
     }
 

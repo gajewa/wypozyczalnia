@@ -22,6 +22,8 @@ import { PostTestComponent } from './post-test/post-test.component';
 import { UserListComponent } from './user-list/user-list.component';
 import { UserProfileComponent } from './user-profile/user-profile.component';
 import { UserHistoryComponent } from './user-history/user-history.component';
+import {ToastModule} from 'ng2-toastr/ng2-toastr';
+import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 
 const appRoutes: Routes = [
   {
@@ -92,6 +94,8 @@ const appRoutes: Routes = [
   ],
   imports: [
     BrowserModule,
+    ToastModule.forRoot(),
+    BrowserAnimationsModule,
     FormsModule,
     HttpClientModule,
     RouterModule.forRoot(
