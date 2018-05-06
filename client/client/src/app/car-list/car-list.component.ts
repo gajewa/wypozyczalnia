@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import {DataServiceService} from "../data-service.service";
 
 @Component({
   selector: 'app-car-list',
@@ -11,10 +11,10 @@ export class CarListComponent implements OnInit {
   cars: any;
   carSearch: any;
 
-  constructor(private http: HttpClient) { }
+  constructor(private dataService: DataServiceService) { }
 
   ngOnInit() {
-    this.http.get('http://localhost:3001/cars').subscribe(data => {
+    this.dataService.getAllCarData().subscribe(data => {
       this.cars = data;
       console.log(this.cars);
     });
@@ -22,11 +22,11 @@ export class CarListComponent implements OnInit {
 
   getSearch() {
     if(this.carSearch === ''){
-      this.http.get('http://localhost:3001/cars').subscribe(data => {
+      this.dataService.getAllCarData().subscribe(data => {
         this.cars = data;
       });
     } else {
-      this.http.get('http://localhost:3001/cars/name/'+this.carSearch).subscribe( data => {
+      this.dataService.getCarByName(this.carSearch).subscribe( data => {
         this.cars = data;
       });
     }
