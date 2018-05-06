@@ -1,6 +1,7 @@
 import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Router } from '@angular/router';
+import { DataServiceService } from '../data-service.service';
 
 
 @Component({
@@ -23,14 +24,14 @@ export class AddCarComponent implements OnInit {
     "totalIncome" : 0,
   };
 
-  constructor(private http: HttpClient,  private router: Router) { }
+  constructor(private http: HttpClient,  private router: Router, private dataService: DataServiceService ) { }
 
   ngOnInit() {
   }
 
   addCar() {
 
-    this.http.post('http://localhost:3001/cars/', this.car).subscribe(
+    this.dataService.postNewCar(this.car).subscribe(
       res => {
         console.log(this.car);
         this.router.navigate(['/cars']);

@@ -3,6 +3,7 @@ import {ActivatedRoute, Router} from '@angular/router';
 import { HttpClient } from '@angular/common/http';
 import { UserServiceService } from '../user-service.service';
 import { ToastsManager } from 'ng2-toastr/ng2-toastr';
+import {DataServiceService} from "../data-service.service";
 
 
 
@@ -24,7 +25,8 @@ export class AddRentalComponent implements OnInit {
   @Input() car: any;
 
   constructor(private http: HttpClient, private route: ActivatedRoute,
-    private router: Router, private data: UserServiceService, public toastr: ToastsManager,  private vcr: ViewContainerRef) {
+    private router: Router, private data: UserServiceService, public toastr: ToastsManager,
+              private vcr: ViewContainerRef, private dataService: DataServiceService) {
     }
 
   ngOnInit() {
@@ -80,7 +82,7 @@ export class AddRentalComponent implements OnInit {
       "discount": this.discount
     };
 
-    this.http.post('http://localhost:3001/rentals', rental).subscribe(
+    this.dataService.postNewRental(rental).subscribe(
       res => {
         this.data.changeDiscount(0);
         this.router.navigate(['/myRentals']);
