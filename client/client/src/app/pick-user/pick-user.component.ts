@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { UserServiceService } from '../user-service.service';
+import {DataServiceService} from "../data-service.service";
 
 @Component({
   selector: 'app-pick-user',
@@ -18,7 +19,7 @@ export class PickUserComponent implements OnInit {
   showUserSearch: boolean;
   // discount: Number;
 
-  constructor(private http: HttpClient, private data: UserServiceService) { }
+  constructor(private http: HttpClient, private data: UserServiceService, private dataService: DataServiceService) { }
 
   ngOnInit() {
     this.data.currentUser.subscribe(user => this.user = user);
@@ -31,7 +32,7 @@ export class PickUserComponent implements OnInit {
     console.log(this.idNumber);
     var sendObject = { "idNumber": this.idNumber};
 
-    this.http.post('http://localhost:3001/users/idNumber', sendObject).subscribe( data => {
+    this.dataService.getUserByIdCardNumberPost(sendObject).subscribe( data => {
       if(data[0] === undefined){
         this.data.changeNewUser(true);
         this.data.changeUserFound(false);
@@ -44,7 +45,7 @@ export class PickUserComponent implements OnInit {
         this.userFound = true;
         this.data.changeUserFound(true);
 
-        this.http.get('http://localhost:3001/users/ranking').subscribe( rankData => {
+        this.dataService.getUserRanking().subscribe( rankData => {
           this.rankData = rankData;
           if(this.rankData[0]._id == this.user._id){
             this.data.changeDiscount(0.2);

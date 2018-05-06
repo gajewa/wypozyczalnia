@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import {ActivatedRoute, Router} from '@angular/router';
+import {DataServiceService} from "../data-service.service";
 
 
 @Component({
@@ -16,11 +17,12 @@ export class ShowRentalsComponent implements OnInit {
   bufRentals: any;
   searchQuery: any;
 
-  constructor(private http: HttpClient, private route: ActivatedRoute, private router: Router) { }
+  constructor(private http: HttpClient, private route: ActivatedRoute, private router: Router,
+              private dataService: DataServiceService) { }
 
   ngOnInit() {
 
-    this.http.get('http://localhost:3001/rentals/test').subscribe( data => {
+    this.dataService.getPopulatedRentals().subscribe( data => {
       this.rentalsData = data;
       this.getActiveRentals();
 
@@ -68,7 +70,7 @@ export class ShowRentalsComponent implements OnInit {
 
     rental.status = "Aktywne";
 
-    this.http.put('http://localhost:3001/rentals/' + id, rental)
+    this.dataService.updateRental(id, rental)
       .subscribe( res => {
       }, (err) => {
         console.log(err);
@@ -79,7 +81,7 @@ export class ShowRentalsComponent implements OnInit {
   updateToCanceled(id, rental) {
     rental.status = "Anulowano";
 
-    this.http.put('http://localhost:3001/rentals/' + id, rental)
+    this.dataService.updateRental(id, rental)
       .subscribe( res => {
           console.log('Updated')
         }, (err) => {
@@ -91,7 +93,7 @@ export class ShowRentalsComponent implements OnInit {
   updateToFinished(id, rental) {
     rental.status = "Zakończone";
 
-    this.http.put('http://localhost:3001/rentals/' + id, rental)
+    this.dataService.updateRental(id, rental)
       .subscribe( res => {
           console.log('Updated')
         }, (err) => {
@@ -101,7 +103,7 @@ export class ShowRentalsComponent implements OnInit {
   }
 
   getSearch(){
-    this.http.get('http://localhost:3001/rentals/test/' + this.searchQuery).subscribe(
+    this.dataService.getRentalsByUserIdNumber(this.searchQuery).subscribe(
       res => {
         this.bufRentals = res;
       }, (err) => {

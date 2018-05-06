@@ -19,7 +19,7 @@ export class CarHistoryComponent implements OnInit {
   ngOnInit() {
     this.carId = this.route.snapshot.params['id'];
 
-    this.dataService.getCarById(this.carId).subscribe( rentalData => {
+    this.dataService.getCarRentalByCarId(this.carId).subscribe( rentalData => {
         this.carHistory = rentalData;
       }
 
