@@ -26,6 +26,7 @@ import {ToastModule} from 'ng2-toastr/ng2-toastr';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import { HttpModule } from "@angular/http";
 import {DataServiceService} from "./data-service.service";
+import { OperationsComponent } from './operations/operations.component';
 
 const appRoutes: Routes = [
   {
@@ -92,7 +93,8 @@ const appRoutes: Routes = [
     PostTestComponent,
     UserListComponent,
     UserProfileComponent,
-    UserHistoryComponent
+    UserHistoryComp,
+    OperationsComponentonent
   ],
   imports: [
     BrowserModule,

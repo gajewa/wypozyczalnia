@@ -76,6 +76,18 @@ export class DataServiceService {
   }
 
   getCarRentalByCarId(id) {
-    return this.http.get('http://localhost:3001/rentals/' + id);
+    return this.http.get(this.serverAdress +  'rentals/' + id);
+  }
+
+  getOperations() {
+    return this.http.get(this.serverAdress + 'operations/');
+  }
+
+  getOperationsByCarId(carId) {
+    return this.http.get(this.serverAdress + 'operations/' + carId);
+  }
+
+  postNewOperation(operation) {
+    return this.http.post( this.serverAdress + 'operations/', operation);
   }
 }

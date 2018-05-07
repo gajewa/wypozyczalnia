@@ -22,15 +22,18 @@ app.use(bodyParser.urlencoded({
 
 app.use(bodyParser.json());
 
-
-var carsPath = require('./cars');
+const carsPath = require('./cars');
 app.use('/cars', carsPath);
 
-var rentalsPath = require('./rentals');
+const rentalsPath = require('./rentals');
 app.use('/rentals', rentalsPath);
 
-var usersPath = require('./users');
+const usersPath = require('./users');
 app.use('/users', usersPath);
+
+const operationsPath = require('./operations');
+app.use('/operations', operationsPath);
+
 
 // var 
 
