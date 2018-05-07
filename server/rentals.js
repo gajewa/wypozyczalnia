@@ -49,7 +49,7 @@ router.post('/', function (req, res, next) {
         var time1 =  new Date(req.body.endDate).getTime();
         var time2 =  new Date(req.body.startDate).getTime();
         var days = calculateDays(time1 - time2);
-        var payment = 100 * car.price *ą days * (1 - req.body.discount);
+        var payment = 100 * car.price * days * (1 - req.body.discount);
         payment = payment.toFixed(2);
         req.body.payment = payment;
    
