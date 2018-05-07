@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import {HttpClient} from "@angular/common/http";
+import {DataServiceService} from "../data-service.service";
 
 @Component({
   selector: 'app-user-list',
@@ -10,21 +11,21 @@ export class UserListComponent implements OnInit {
 
   users: any;
   searchQuery: any;
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient, private dataService: DataServiceService) { }
 
   ngOnInit() {
-    this.http.get('http://localhost:3001/users').subscribe( res => {
+    this.dataService.getUsers().subscribe( res => {
       this.users = res;
     })
   }
 
   getSearch(){
     if(this.searchQuery === ""){
-      this.http.get('http://localhost:3001/users').subscribe( res => {
+      this.dataService.getUsers().subscribe( res => {
         this.users = res;
       })
     } else {
-      this.http.get('http://localhost:3001/users/idNumber/' + this.searchQuery).subscribe( res => {
+      this.dataService.getUserByIdCardNumber(this.searchQuery).subscribe( res => {
         this.users = res;
       })
     }

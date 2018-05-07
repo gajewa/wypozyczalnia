@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import * as d3 from "d3"
 import { HttpClient } from '@angular/common/http';
+import {DataServiceService} from "../data-service.service";
 // import { endianness } from 'os';
 
 @Component({
@@ -26,7 +27,7 @@ export class StatsComponent implements OnInit {
       "body" : "Hatchback",
       "count" : 0,
       "income": 0
-    }]; 
+    }];
 
   rentalData: any;
   incomeData: any;
@@ -52,13 +53,13 @@ export class StatsComponent implements OnInit {
   userIncomedata: any;
   userRentalData: any;
   userSelect: boolean = true;
-  //#endregion data init
 
-  constructor(private http: HttpClient) { }
+
+  constructor(private http: HttpClient, private dataService: DataServiceService) { }
 
   ngOnInit() {
 
-    this.http.get('http://localhost:3001/stats/rentals').subscribe( data => {
+    this.dataService.getRentals().subscribe( data => {
       this.rentalData = data;
 
       console.log('RENTAL INIT');
@@ -73,7 +74,7 @@ export class StatsComponent implements OnInit {
       //#region body and engine count
       for(var i=0; i<this.rentalData.length; i++) {
         if (this.rentalData[i].totalRentals == 0) {
-          
+
           this.rentalData.splice(i, 1);
           i--;
           continue;
@@ -90,7 +91,7 @@ export class StatsComponent implements OnInit {
         this.bodyData[0].count+=this.rentalData[i].totalRentals;
         this.bodyData[0].income += this.rentalData[i].totalIncome;
       }
-   
+
       if(this.rentalData[i].engine[0] === "B"){
           this.engineData[0].count+=this.rentalData[i].totalRentals;
           this.engineData[0].income+=this.rentalData[i].totalIncome;
@@ -99,8 +100,8 @@ export class StatsComponent implements OnInit {
           this.engineData[1].income+=this.rentalData[i].totalIncome;
         }
       }
-      //#endregion body and engine count   
-  
+      //#endregion body and engine count
+
       this.rentalData.sort(this.compareCarRentals);
 
       var color = d3.scaleOrdinal(d3.schemeCategory10);
@@ -130,11 +131,11 @@ export class StatsComponent implements OnInit {
         return d.make + " " + d.model + " " + d.totalRentals;
       });
       //#endregion car stats chart
-      
+
       this.bodyData.sort(this.compareEngineRentals);
       this.engineData.sort(this.compareEngineRentals);
 
-      //#region body stats chart 
+      //#region body stats chart
       d3.select("#para")
       .selectAll("div")
       .data(this.bodyData)
@@ -156,7 +157,7 @@ export class StatsComponent implements OnInit {
         return d.body + " " + d.count;
       });
       //#endregion body stats chart
-      
+
       //#region engine stats chart
       d3.select("#parb")
       .selectAll("div")
@@ -185,7 +186,7 @@ export class StatsComponent implements OnInit {
     this.http.get('http://localhost:3001/users/ranking').subscribe( data => {
       this.userRentalData = data;
       var max = this.userRentalData[0].moneySpent;
-      
+
       var color = d3.scaleOrdinal(d3.schemeCategory10);
       //#region engine stats chart
       d3.select("#userRank")
@@ -250,7 +251,7 @@ export class StatsComponent implements OnInit {
         this.carSelect = true;
     }
 
-   
+
   }
   //#endregion toggle car data method
 
@@ -259,9 +260,9 @@ export class StatsComponent implements OnInit {
     if(this.bodySelect){
       console.log(this.rentalData);
       this.bodyData.sort(this.compareEngineIncome);
-  
+
       var color = d3.scaleOrdinal(d3.schemeCategory20);
-  
+
       d3.select("#para")
         .selectAll("#div")
         .data(this.bodyData)
@@ -277,7 +278,7 @@ export class StatsComponent implements OnInit {
         this.bodySelect = false;
     } else {
       var color = d3.scaleOrdinal(d3.schemeCategory20);
-  
+
       d3.select("#para")
         .selectAll("#div")
         .data(this.bodyData)
@@ -292,7 +293,7 @@ export class StatsComponent implements OnInit {
         });
         this.bodySelect = true;
     }
-   
+
   }
 
 
@@ -329,7 +330,7 @@ export class StatsComponent implements OnInit {
         return d.engine + " " + d.count;
       });
       this.engineSelect = true;
-    }    
+    }
   }
 
   compareCarRentals(a,b) {
@@ -362,5 +363,5 @@ export class StatsComponent implements OnInit {
     if(a.income > b.income)
       return -1;
     return 0;
-  } 
+  }
  }

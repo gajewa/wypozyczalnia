@@ -24,6 +24,8 @@ import { UserProfileComponent } from './user-profile/user-profile.component';
 import { UserHistoryComponent } from './user-history/user-history.component';
 import {ToastModule} from 'ng2-toastr/ng2-toastr';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
+import { HttpModule } from "@angular/http";
+import {DataServiceService} from "./data-service.service";
 
 const appRoutes: Routes = [
   {
@@ -96,6 +98,7 @@ const appRoutes: Routes = [
     BrowserModule,
     ToastModule.forRoot(),
     BrowserAnimationsModule,
+    HttpModule,
     FormsModule,
     HttpClientModule,
     RouterModule.forRoot(
@@ -104,7 +107,8 @@ const appRoutes: Routes = [
     )
   ],
   providers: [
-    UserServiceService
+    UserServiceService,
+    DataServiceService
   ],
   bootstrap: [AppComponent]
 })
