@@ -41,15 +41,36 @@ router.get('/test', (req, res) => {
              if(err) return err;
              res.json(rents);
          })
- })
+ });
+
+router.get('/active', (req, res, next) => {
+    Rental.find({'status' : 'Aktywne'})
+        .populate('userId', 'idNumber')
+        .populate('carId', 'make model price')
+        .exec((err, rents) => {
+            if(err) return err;
+            res.json(rents);
+        })
+});
+
+router.get('/canceled', (req, res, next) => {
+    Rental.find({'status' : 'Anulowano'})
+        .populate('userId', 'idNumber')
+        .populate('carId', 'make model price')
+        .exec((err, rents) => {
+            if(err) return err;
+            res.json(rents);
+        })
+});
+
 
 router.post('/', function (req, res, next) {
 
     Car.findById(req.body.carId, (err, car)=>{
-        var time1 =  new Date(req.body.endDate).getTime();
-        var time2 =  new Date(req.body.startDate).getTime();
-        var days = calculateDays(time1 - time2);
-        var payment = 100 * car.price * days * (1 - req.body.discount);
+        let time1 = new Date(req.body.endDate).getTime();
+        let time2 = new Date(req.body.startDate).getTime();
+        let days = calculateDays(time1 - time2);
+        let payment = 100 * car.price * days * (1 - req.body.discount);
         payment = payment.toFixed(2);
         req.body.payment = payment;
    
@@ -109,7 +130,7 @@ router.get('/test/:name', function (req, res, next) {
         .exec( (err, values) => {
             if(err) return err;
 
-            for(var i = 0; i < values.length; i++){
+            for(let i = 0; i < values.length; i++){
                 if(values[i].userId === null){
                     values.splice(i, 1);
                     i -= 1;
@@ -129,7 +150,7 @@ router.get('/user/:userid', (req, res, next) => {
 
             res.json(data);
         })
-})
+});
 
 function calculateDays(time){
     var cd = 24 * 60 * 60 * 1000,

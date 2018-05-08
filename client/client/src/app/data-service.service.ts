@@ -90,4 +90,12 @@ export class DataServiceService {
   postNewOperation(operation) {
     return this.http.post( this.serverAdress + 'operations/', operation);
   }
+
+  getActiveRentals() {
+    return this.http.get(this.serverAdress + 'rentals/active');
+  }
+
+  getCanceledRentals() {
+    return this.http.get(this.serverAdress + 'rentals/canceled');
+  }
 }

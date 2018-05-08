@@ -12,8 +12,6 @@ import {DataServiceService} from "../data-service.service";
 export class ShowRentalsComponent implements OnInit {
 
   rentalsData : any;
-  carData : any;
-  showRentals = [];
   bufRentals: any;
   searchQuery: any;
 
@@ -21,39 +19,26 @@ export class ShowRentalsComponent implements OnInit {
               private dataService: DataServiceService) { }
 
   ngOnInit() {
-
-    this.dataService.getPopulatedRentals().subscribe( data => {
-      this.rentalsData = data;
       this.getActiveRentals();
-
-    })
   }
 
   getActiveRentals(){
-    this.bufRentals =  [];
-    for(var i = 0; i<this.rentalsData.length; i++){
-
-      if(this.rentalsData[i].status === 'Aktywne'){
-        this.bufRentals.push(this.rentalsData[i]);
-      }
-
-    }
-    console.log(this.bufRentals);
+    this.dataService.getActiveRentals().subscribe( data => {
+      this.bufRentals = data;
+    })
   }
 
   getPastRentals(){
-    this.bufRentals = [];
 
-    for(var i = 0; i<this.rentalsData.length; i++){
-
-      if(this.rentalsData[i].status === 'Anulowano'){
-        this.bufRentals.push(this.rentalsData[i]);
-      }
-    }
+    this.dataService.getCanceledRentals().subscribe( data => {
+      this.bufRentals = data;
+    })
   }
 
   getAllRentals(){
-    this.bufRentals = this.rentalsData;
+    this.dataService.getPopulatedRentals().subscribe( data => {
+      this.bufRentals = data;
+    })
   }
 
   ifReady(startDate) {
