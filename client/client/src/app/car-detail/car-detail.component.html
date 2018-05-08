@@ -12,8 +12,8 @@
 </div>
 
 <button type="button" (click)="toggleEdit()" class="btn btn-warning">Edytuj dane auta</button>
-<button type="button" (click)="deleteCar(car._id)" class="btn btn-danger">Usuń auto z bazy danych</button>
-<button type="button" (click)="toggleHistory()" class="btn btn-primary">Pokaż wypożyczenia tego auta</button>
+<button type="button" (click)="deleteCar(car._id)" class="btn btn-danger">Usuń auto z bazy</button>
+<button type="button" (click)="toggleHistory()" class="btn btn-primary">Historia wypożyczeń</button>
 <button type="button" (click)="toggleOperations()" class="btn btn-info">Operacje</button>
 <br>
 
@@ -25,3 +25,5 @@
 <app-edit-car *ngIf="editCar"></app-edit-car>
 
 <app-car-history *ngIf="showHistory"></app-car-history>
+
+<app-operations *ngIf="showOperations"></app-operations>

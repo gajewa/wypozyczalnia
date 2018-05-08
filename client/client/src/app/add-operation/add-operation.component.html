@@ -1,0 +1,30 @@
+<h3>Nowa operacja</h3>
+<form (ngSubmit)="addOperation()">
+  <div id="form-wrap">
+    <div class="form-group form-date-block">
+      <label>Opis</label>
+      <textarea rows="5" class="form-control" [(ngModel)]="operation.description" name="description"></textarea>
+    </div>
+
+    <div class="form-type-block">
+      <div class="form-group ">
+        <label>Data</label>
+        <input type="datetime-local" rows="5" class="form-control date-height" [(ngModel)]="operation.date" name="date">
+      </div>
+
+      <div class="form-group">
+        <label>Typ</label>
+        <select class="form-control date-height" [(ngModel)]="operation.type" name="type">
+          <option value="Naprawa">Naprawa</option>
+          <option value="Przegląd">Przegląd</option>
+          <option value="Sprzątanie">Sprzątanie</option>
+        </select>
+      </div>
+
+      <button type="submit" class="btn btn-success float-right">Zatwierdź</button>
+    </div>
+  </div>
+
+
+
+</form>

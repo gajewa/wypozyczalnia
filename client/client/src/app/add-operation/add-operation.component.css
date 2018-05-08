@@ -1,0 +1,18 @@
+.form-date-block{
+  float:left;
+  width:45%;
+  margin-right: 1%;
+}
+
+.form-type-block{
+  overflow: hidden;
+  width:45%;
+}
+
+.form-wrap {
+  overflow: hidden;
+}
+
+.date-height {
+  height: 2.5rem !important;
+}

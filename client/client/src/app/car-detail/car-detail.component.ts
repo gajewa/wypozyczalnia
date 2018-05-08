@@ -2,17 +2,19 @@ import { Component, OnInit } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import {ActivatedRoute, Router} from '@angular/router';
 import {DataServiceService} from "../data-service.service";
+import {AddOperationComponent} from "../add-operation/add-operation.component";
 
 @Component({
   selector: 'app-car-detail',
   templateUrl: './car-detail.component.html',
-  styleUrls: ['./car-detail.component.css']
+  styleUrls: ['./car-detail.component.css'],
 })
 export class CarDetailComponent implements OnInit {
 
   car: any;
   editCar = false;
   showHistory = false;
+  showOperations = false;
   startDate : string;
   endDate : string;
 
@@ -45,6 +47,11 @@ export class CarDetailComponent implements OnInit {
   toggleHistory(){
     this.showHistory = !this.showHistory;
   }
+
+  toggleOperations(){
+    this.showOperations = !this.showOperations;
+  }
+
 
 }
 

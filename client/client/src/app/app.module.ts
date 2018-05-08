@@ -27,6 +27,7 @@ import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import { HttpModule } from "@angular/http";
 import {DataServiceService} from "./data-service.service";
 import { OperationsComponent } from './operations/operations.component';
+import { AddOperationComponent } from './add-operation/add-operation.component';
 
 const appRoutes: Routes = [
   {
@@ -93,8 +94,9 @@ const appRoutes: Routes = [
     PostTestComponent,
     UserListComponent,
     UserProfileComponent,
-    UserHistoryComp,
-    OperationsComponentonent
+    UserHistoryComponent,
+    OperationsComponent,
+    AddOperationComponent
   ],
   imports: [
     BrowserModule,

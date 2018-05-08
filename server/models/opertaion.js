@@ -1,7 +1,7 @@
 var mongoose = require('mongoose');
 
 var OperationSchema = new mongoose.Schema({
-    title: String,
+    description: String,
     type: String,
     date: Date,
     carId: {

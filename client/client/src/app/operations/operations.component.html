@@ -1,3 +1,19 @@
-<p>
-  operations works!
-</p>
+<app-add-operation  (carAddedEvent)="refreshList($event)" ></app-add-operation>
+
+<h3>Operacje</h3>
+<table class="table">
+  <thead>
+  <tr>
+    <th>Opis</th>
+    <th>Typ</th>
+    <th>Data</th>
+  </tr>
+  </thead>
+  <tbody>
+  <tr *ngFor="let element of operations">
+    <td>{{element.description}}</td>
+    <td>{{element.type}}</td>
+    <td>{{element.date}}</td>
+  </tr>
+  </tbody>
+</table>

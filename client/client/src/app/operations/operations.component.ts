@@ -16,6 +16,16 @@ export class OperationsComponent implements OnInit {
   ngOnInit() {
     this.dataService.getOperationsByCarId(this.route.snapshot.params['id']).subscribe( data => {
       this.operations = data;
+      console.log(this.operations);
+    })
+  }
+
+
+  refreshList(event){
+    console.log('added')
+    this.dataService.getOperationsByCarId(this.route.snapshot.params['id']).subscribe( data => {
+      this.operations = data;
+      console.log(this.operations);
     })
   }
 

@@ -44,11 +44,10 @@ router.get('/:carId', (req, res, next) => {
 })
 
 router.post('/', (req, res, next) => {
-    Operation.create(req.body)
-        .exec((err, result) => {
-            if(err) return err;
+    Operation.create(req.body, (err, op) => {
+        if(err) return err;
 
-            res.json(result);
-        })
+        res.json(op);
+    })
 })
 module.exports = router;
