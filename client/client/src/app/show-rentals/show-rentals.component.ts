@@ -43,9 +43,9 @@ export class ShowRentalsComponent implements OnInit {
 
   ifReady(startDate) {
 
-    var offDate = new Date(startDate.substring(0,10)+":"+startDate.substring(13,19)+":00.000Z");
-    var offset = offDate.getTimezoneOffset() * 60000;
-    var finalDate = new Date(offDate.getTime() + offset);
+    let offDate = new Date(startDate.substring(0, 10) + ":" + startDate.substring(13, 19) + ":00.000Z");
+    let offset = offDate.getTimezoneOffset() * 60000;
+    let finalDate = new Date(offDate.getTime() + offset);
 
     if(finalDate.getTime() < Date.now())
       return true;
